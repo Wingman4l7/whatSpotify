@@ -1,9 +1,8 @@
 // ==UserScript==
-// @name         What.CD Spotify links
-// @description  Add a Spotify link to torrents on What.CD
-// @version      0.1
+// @name         whatSpotify
+// @description  Embeds Spotify links & player widget into What.CD artist & album pages
+// @version      0.2
 // @match        https://what.cd/*
-// @require      http://code.jquery.com/jquery-latest.js
 // @grant        none
 // ==/UserScript==
 
@@ -126,6 +125,18 @@ function getSpotifyArtistAlbumId(artistId, whatAlbum, onSuccess) {
     });
 }
 
+function embedSpotifyPlaylist(Id) {
+    var spotifyLink = document.createElement('a');
+    var themecolor = "black"; // default; can also be white
+    var height = "330"; // height must be at least 80px more than width (minimum: 250px) or the compact player is rendered
+    // frameborder & allowtransparency values required to render correctly!
+    spotifyLink.innerHTML = "<p><iframe src=\"https://embed.spotify.com/?uri=" + Id + "&theme=" + themecolor + 
+            "\" width=\"250\" height=" + height + "\" frameborder=\"0\" allowtransparency=\"true\"></iframe>";
+    spotifyLink.style.position = "relative";
+    spotifyLink.style.left = '-16px'; // manual tweaking
+    $('.head')[0].appendChild(spotifyLink); // place above album cover or artist's picture
+}
+
 /*************************************/
 /************* Top 10 ****************/
 /*************************************/
@@ -174,6 +185,7 @@ if (window.location.href.indexOf('artist.php') > -1) {
         if (artistId !== '' && artistId !== undefined) {
             var a = createSpotifyLinkBlue('spotify:artist:' + artistId);
             $('h2').append(a);
+            embedSpotifyPlaylist('spotify:artist:' + artistId); 
             
             getSpotifyArtistAlbums(artistId, function(albums) {
                 var groups = $('#torrents_album, #torrents_ep').find('div.group_info');
@@ -207,6 +219,7 @@ if (window.location.href.indexOf('torrents.php?id') > -1) {
                 var a = null;
                 if (albumId !== '') {
                     a = createSpotifyLinkGreen('spotify:album:' + albumId);
+                    embedSpotifyPlaylist('spotify:album:' + albumId);
                 } else {
                     a = createSpotifyLinkBlue('spotify:artist:' + artistId);
                 }
