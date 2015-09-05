@@ -34,7 +34,7 @@ I've also tested this script using Chrome & the Layer Cake stylesheet.  If the p
 
 To avoid making the same requests to the Spotify API the matches are cached via the HTML5 localStorage object, keeping a maximum number of stored objects (default is 100, change it if you want to)."
 
-This script does use jQuery, but it is not listed as an @require, as What.CD already loads jQuery, and the version loaded by this script shadows that one. The site uses some methods that do not seem to be present in the version used by the script; loading jQuery in the script breaks some things on What.CD, so it has been left out.
+This script *does* use jQuery, but it is not listed as an `@require`, as What.CD already loads jQuery, and the version loaded by this script shadows that one. The site uses some methods that do not seem to be present in the version used by the script; loading jQuery in the script breaks some things on What.CD, so it has been left out.
 
 ### Existing Bug ###
 Albums that are self-titled *(album name is the same as the artist's name)* will result in the generation of an erroneous Spotify URI.  Current cause of this is unknown.
