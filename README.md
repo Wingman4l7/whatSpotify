@@ -29,7 +29,7 @@ aphex80 tested it "on a Mac/10.10.3 in Chrome 42.0.2311.135 (64-bit) and Safari 
 
 I've also tested this script using Chrome & the Layer Cake stylesheet.  If the player is offset in an ugly way, you probably will need to tweak the pixel count in the `style` value.
 
-**NOTE:** If you're using a browser extension like Ghostery to block third party tracking, it may block the embedding of the widget, resulting in an empty space or no visual change at all.  Simply allow the widget within the confines of the What.CD domain within the Ghostery settings to fix this. 
+**NOTE:** If you're using a browser extension like Ghostery to block third party tracking, it may block the embedding of the widget, resulting in an empty space or no visual change at all.  Simply allow the widget (`SpotifyEmbed`) within the confines of the What.CD domain within the Ghostery settings to fix this.  You'll also need to allow `Google Tag Manager` or the widget will load & display, but not actually work.
 
 ## How It Works ##
 "The script uses the Spotify API to search artists and albums. It tries to match strings using string similarity to find names that don't match exactly between What.CD notations and Spotify notations. It displays two type of icons: a blue one that indicates that an artist was matched but not the album, and a green one that indicates an exact album match. It's not 100% accurate since if an artist or album is not found on Spotify, it will try to match the most similar string.
