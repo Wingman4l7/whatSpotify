@@ -34,7 +34,7 @@ I've also tested this script using Chrome & the Layer Cake stylesheet.  If the p
 ## How It Works ##
 "The script uses the Spotify API to search artists and albums. It tries to match strings using string similarity to find names that don't match exactly between What.CD notations and Spotify notations. It displays two type of icons: a blue one that indicates that an artist was matched but not the album, and a green one that indicates an exact album match. It's not 100% accurate since if an artist or album is not found on Spotify, it will try to match the most similar string.
 
-To avoid making the same requests to the Spotify API the matches are cached via the HTML5 localStorage object, keeping a maximum number of stored objects (default is 100, change it if you want to)."
+To avoid making the same requests to the Spotify API the matches are cached via the HTML5 localStorage object, keeping a maximum number of stored objects (default is 1000, change it if you want to)."
 
 This script *does* use jQuery, but it is not listed as an `@require`, as What.CD already loads jQuery, and the version loaded by this script shadows that one. The site uses some methods that do not seem to be present in the version used by the script; loading jQuery in the script breaks some things on What.CD, so it has been left out.
 
