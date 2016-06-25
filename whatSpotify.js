@@ -8,7 +8,7 @@
 
 var maxSizeCache = 1000;
 var stringSimilarityThreshold = 0.6;
-localStorage.what = localStorage.what || JSON.stringify([]);
+localStorage.whatSpotify = localStorage.whatSpotify || JSON.stringify([]);
 
 
 function createSpotifyLink(link, imageSource) {
@@ -23,7 +23,7 @@ function createSpotifyLink(link, imageSource) {
         link = "https://play.spotify.com/artist/" + link.substring(15);
     }
     a.target = "_blank";  // Open in new tab
-   ////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////
     */
     a.href = link;
     a.title = 'Listen in Spotify';
@@ -46,7 +46,7 @@ function createSpotifyLinkBlue(link) {
 }
 
 function getCache(key) {
-    var list = JSON.parse(localStorage.what);
+    var list = JSON.parse(localStorage.whatSpotify);
     var res = null;
     $(list).each(function(i, el) {
         if (el.key === key) {
@@ -58,12 +58,12 @@ function getCache(key) {
 }
 
 function setCache(o) {
-    var list = JSON.parse(localStorage.what);
+    var list = JSON.parse(localStorage.whatSpotify);
     if (list.length == maxSizeCache) {
         list.shift();
     }
     list.push(o);
-    localStorage.what = JSON.stringify(list);
+    localStorage.whatSpotify = JSON.stringify(list);
 }
 
 function getSpotifyArtistId(whatArtist, onSuccess) {
