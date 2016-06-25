@@ -16,7 +16,9 @@ The script covers the following pages:
 - Torrent page
 - Bookmark artists page
 - Bookmark torrents page
-- Collages *(courtesy user earthtojames!)*
+- Collages ["Subscribed To" only] *(courtesy user earthtojames!)*
+
+If you would like the script to generate links that open the Spotify web player in a new browser tab, instead of generating links that open the desktop application, simply uncomment the indicated code block in the `createSpotifyLink()` function. *(courtesy user PizzaWhistles!)*
 
 Unfortunately, the widget does **not** support seeking within the track that's playing.  FYI, its [intended behavior][1] is to launch the web player or desktop client to start the playback; the widget is effectively only a “remote control”.
 
@@ -40,4 +42,4 @@ To avoid making the same requests to the Spotify API the matches are cached via 
 This script *does* use jQuery, but it is not listed as an `@require`, as What.CD already loads jQuery, and the version loaded by this script shadows that one. The site uses some methods that do not seem to be present in the version used by the script; loading jQuery in the script breaks some things on What.CD, so it has been left out.
 
 ### Existing Bug ###
-Albums that are self-titled *(album name is the same as the artist's name)* will result in the generation of an erroneous Spotify URI.  Current cause of this is unknown.
+Albums that are self-titled *(album name is the same as the artist's name)* will result in a key clash in the script's cache; the script will attempt to use the cached artist URI for the embdedded link & widget, instead of the proper album URI.  A fix to the cache code is underway.
