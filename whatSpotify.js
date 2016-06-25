@@ -6,9 +6,10 @@
 // @grant        none
 // ==/UserScript==
 
-var maxSizeCache = 1000;
+var maxSizeCache = 500; // doubled across Artist and Album caches (total = maxSizeCache * 2)
 var stringSimilarityThreshold = 0.6;
-localStorage.whatSpotify = localStorage.whatSpotify || JSON.stringify([]);
+localStorage.whatSpotifyAlbums = localStorage.whatSpotifyAlbums || JSON.stringify([]);
+localStorage.whatSpotifyArtists = localStorage.whatSpotifyArtists || JSON.stringify([]);
 
 
 function createSpotifyLink(link, imageSource) {
@@ -45,30 +46,47 @@ function createSpotifyLinkBlue(link) {
     return createSpotifyLink(link, 'data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAACXlBMVEUAAAAKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IKe9IJe9IKe9IKe9IJetIKe9IKe9IAaMsAaswAa80AbM0Abc0Abs4Ab84AcM4Acc4Acc8Acs8Ac88AdM8AdNAAddAAdtABdtACd9EDd9EEd9EEeNEFeNEGedEHedEHetIIetIJetIJe9IKe9ILe9ILfNIMfNINfNINfNMNfdMOfdMPfdMPftMQftMRf9MSf9MSf9QUgNQWgtQXg9QZg9UbhNUchdUdhdYfh9Ygh9YiiNYjiNYkidclidclitcmitcmi9cnitcoi9gqjNgrjdgsjdgvj9k3k9o5lNs6lds+l9w/mNxAmNxDmt1Nn95PoN9Qod9WpOBdqOFdqOJjq+NnreNrr+RtsOVztOV0tOV2teZ2tuZ3tuZ6uOd7uOd8uOd8ueeAu+iFvemJv+qKwOqLweqNwuqVxuydyu2gze6ize6jzu6nz++n0O+o0O+p0O+p0fCq0vCv0/Cz1vG11/K12PK72vK93PO+3PPE3/TF4PTF4PXJ4fXJ4vXK4/XL4/bO5fbP5fbS5/bT5/fT6PfU6PfV6fjX6vjY6vjZ6/ja6/jc7Pnd7fne7fnf7vnj8Prl8frp8/vq8/vr9Pvs9fvs9fzt9fzx9/zx9/3x+Pzy+P3z+f32+v32+v74+/76/P77/f78/f79/v////9p+tIHAAAALXRSTlMAAQIDDREUGx0kJihBQklLTU9SV1hdYW2LjI2wsbK3uLvBw8nz+Pn7+/z9/f7WBhWVAAACN0lEQVR4AW2SA5tcMRRAs7Ztc8z3xsYdrGvbdre2bRuLulOb+VebvDHOx+QEVyhAMkI5JVW1zc11laVZ3DKagoY2CNDamBulUlB2E0TRlImSwr6YD3wIQxbtReG7FRBtuWV56C4kpNBvs+lNT29fv9ft6e3v6/UE72dwGTUB36JVswxjcjm1SoZV60x2ztdzGRE7tH7/lScfv3///s334Myu1TO1rIe+kU90A5hmPMJRvD+3zcSSF2pIrdpAs4ps/fzw9uXI2Gvf5z+Y4ttpdXRBGioBsMPus8OrpqqlUqnMPGv98KnnmHCG6YBiVAUATo1cINa4hiYP9ehlYjE7acM1jO8ou6Ea1RLtNkzbcuTi7afPRu9ePrZ1hUKpka07usBCY28m2jr3HQ7z4/6OXrVabnEBtHDashTjexdOHNx76MT5O78wxl8PeBwAVNfRx43LVw4oRWKxWCj3Ltx0/R/Gl+T+wlQCwaWRiHXTF61YNtsmkTLM7NO/jzMAPBJaKRAscw7fePHp9/+/397c2rdYJ2fn07J2ksSyWgE87ElSl1eP7z8c/4IxvrlZo6WaB6kINdLbi7avXTLFabIMzluzZxTjsyYbAFdUlAt8cBkY0ieL1WLWqVh24/hVixUIeYGGQiQetdNDLI/ETclsh2hcFouLjlu6fxyL4kaN2wgMYxIqj/M8gDIUohBiIYOcFPYZ9QBdnTw+eYbXSa7Wp6No8msgRE0eiietuLq+paW+upjUKvjyBIDB9cXhBwH0AAAAAElFTkSuQmCC');
 }
 
-function getCache(key) {
-    var list = JSON.parse(localStorage.whatSpotify);
-    var res = null;
-    $(list).each(function(i, el) {
-        if (el.key === key) {
-            res = el.value;
-            return false;
-        }
-    });
-    return res;
+function parseCache(type) {
+    var listAlbums = null;
+    var listArtists = null;
+    // only parse the cache you need to get the value from!
+    if(type == "album") { 
+        listAlbums = JSON.parse(localStorage.whatSpotifyAlbums);
+        return listAlbums; 
+    }
+    if(type == "artist") { 
+        listArtists = JSON.parse(localStorage.whatSpotifyArtists);
+        return listArtists; 
+    }
 }
 
-function setCache(o) {
-    var list = JSON.parse(localStorage.whatSpotify);
+function getCache(key, type) {
+    var result = null;
+    var list = parseCache(type);
+    
+    $(list).each(function(i, element) {
+        if (element.key === key) {
+            result = element.value;
+            return false;
+        }
+    });        
+    return result;
+}
+
+function setCache(element, type) {
+    var list = parseCache(type);
+
     if (list.length == maxSizeCache) {
         list.shift();
     }
-    list.push(o);
-    localStorage.whatSpotify = JSON.stringify(list);
+    list.push(element);
+    if(type == "album") { localStorage.whatSpotifyAlbums = JSON.stringify(list); }
+    if(type == "artist") { localStorage.whatSpotifyArtists = JSON.stringify(list); }
 }
 
 function getSpotifyArtistId(whatArtist, onSuccess) {
 
-    var cachedArtistId = getCache(whatArtist);
+    var cachedArtistId = getCache(whatArtist, "artist");
     if (cachedArtistId !== null && cachedArtistId !== '') {
         onSuccess(cachedArtistId);
         return;
@@ -91,7 +109,7 @@ function getSpotifyArtistId(whatArtist, onSuccess) {
                     bestArtistId = artist.id;
                 }
             });
-            setCache({ key: whatArtist, value: bestArtistId });
+            setCache({ key: whatArtist, value: bestArtistId }, "artist");
             onSuccess(bestArtistId);
         } else {
             onSuccess('');
@@ -99,21 +117,9 @@ function getSpotifyArtistId(whatArtist, onSuccess) {
     });
 }
 
-function getSpotifyArtistAlbums(artistId, onSuccess) {
-
-    $.get('https://api.spotify.com/v1/artists/' + artistId + '/albums?limit=50', function(data) {
-        var albumItems = data.items;
-        var albums = [];
-        $(albumItems).each(function(i, albumItem) {
-            albums.push({ name : albumItem.name, id : albumItem.id });
-        });
-        onSuccess(albums);
-    });
-}
-
 function getSpotifyArtistAlbumId(artistId, whatAlbum, onSuccess) {
 
-    var cachedAlbumId = getCache(whatAlbum);
+    var cachedAlbumId = getCache(whatAlbum, "album");
     if (cachedAlbumId !== null && cachedAlbumId !== '') {
         onSuccess(cachedAlbumId);
         return;
@@ -129,11 +135,23 @@ function getSpotifyArtistAlbumId(artistId, whatAlbum, onSuccess) {
                     return false;
                 }
             });
-            setCache({ key: whatAlbum, value: albumId });
+            setCache({ key: whatAlbum, value: albumId }, "album");
             onSuccess(albumId);
         } else {
             onSuccess('');
         }
+    });
+}
+
+function getSpotifyArtistAlbums(artistId, onSuccess) {
+
+    $.get('https://api.spotify.com/v1/artists/' + artistId + '/albums?limit=50', function(data) {
+        var albumItems = data.items;
+        var albums = [];
+        $(albumItems).each(function(i, albumItem) {
+            albums.push({ name : albumItem.name, id : albumItem.id });
+        });
+        onSuccess(albums);
     });
 }
 
@@ -249,7 +267,7 @@ if (window.location.href.indexOf('artist.php') > -1) {
                         return sSimilarity(album.name.toUpperCase(), whatAlbum.toUpperCase()) >= stringSimilarityThreshold;
                     });
                     if (album.length > 0) {
-                        setCache({ key: whatAlbum, value: album[0].id });
+                        setCache({ key: whatAlbum, value: album[0].id }, "album");
                         var a = createSpotifyLinkGreen('spotify:album:' + album[0].id);
                         $(group).prepend(a);
                     }
