@@ -177,6 +177,7 @@ if (window.location.href.indexOf('top10.php') > -1) {
 }
 
 /*************************************/
+/************* Collages **************/
 /*************************************/
 if (window.location.href.indexOf('userhistory.php?action=subscribed_collages') > -1) {
     var processTable = function (table) {
