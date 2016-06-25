@@ -133,7 +133,7 @@ function embedSpotifyPlaylist(Id) {
     spotifyLink.innerHTML = "<p><iframe src=\"https://embed.spotify.com/?uri=" + Id + "&theme=" + themecolor + 
             "\" width=\"250\" height=" + height + "\" frameborder=\"0\" allowtransparency=\"true\"></iframe>";
     spotifyLink.style.position = "relative";
-    spotifyLink.style.left = '-16px'; // manual tweaking
+    spotifyLink.style.left = '-10px'; // manual tweaking
     $('.head')[0].appendChild(spotifyLink); // place above album cover or artist's picture
 }
 
