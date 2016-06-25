@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         whatSpotify
 // @description  Embeds Spotify links & player widget into What.CD artist & album pages
-// @version      0.2
+// @version      0.3
 // @match        https://what.cd/*
 // @grant        none
 // ==/UserScript==
