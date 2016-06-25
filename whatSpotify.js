@@ -177,6 +177,46 @@ if (window.location.href.indexOf('top10.php') > -1) {
 }
 
 /*************************************/
+/*************************************/
+if (window.location.href.indexOf('userhistory.php?action=subscribed_collages') > -1) {
+    var processTable = function (table) {
+        var groups = $('div.group_info', table);
+        $(groups).each(function(i, group) {
+            var whatArtist = $(group).find('a[href*="artist.php"]')[0];
+            var whatAlbum = $(group).find('a[href*="torrents.php?id"]')[0];
+            whatAlbum = $(whatAlbum).text();
+            whatArtist = $(whatArtist).text();
+
+            getSpotifyArtistId(whatArtist, function(artistId) {
+                if (artistId !== '' && artistId !== undefined) {
+                    getSpotifyArtistAlbumId(artistId, whatAlbum, function(albumId) {
+                        var a = null;
+                        if (albumId !== '') {
+                            a = createSpotifyLinkGreen('spotify:album:' + albumId);
+                        } else {
+                            a = createSpotifyLinkBlue('spotify:artist:' + artistId);
+                        }
+                        $(group).prepend(a);
+                    });
+                }
+            });
+        });
+    };
+
+    $('.torrent_table').each(function () { processTable(this); });
+
+    new MutationObserver(function (mutes) {
+        mutes.forEach(function (m) {
+            $(m.addedNodes).each(function () {
+                if (this.nodeName == 'TABLE') processTable(this);
+            });
+        });
+    }).observe(document.querySelector('.thin'), { childList: true });
+}
+
+
+
+/*************************************/
 /*********** Artist page *************/
 /*************************************/
 if (window.location.href.indexOf('artist.php') > -1) {
