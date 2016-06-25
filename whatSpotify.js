@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         whatSpotify
 // @description  Embeds Spotify links & player widget into What.CD artist & album pages
-// @version      0.3
+// @version      0.4
 // @match        https://what.cd/*
 // @grant        none
 // ==/UserScript==
@@ -13,6 +13,18 @@ localStorage.what = localStorage.what || JSON.stringify([]);
 
 function createSpotifyLink(link, imageSource) {
     var a = document.createElement('a');
+    /*
+    // ENABLE THIS CODEBLOCK TO HAVE LINKS OPEN IN BROWSER INSTEAD OF DESKTOP APPLICATION //
+    ////////////////////////////////////////////////////////////////////////////////////////
+    if (link.indexOf("album") > -1) {  // Link is an album
+        link = "https://play.spotify.com/album/" + link.substring(14);
+    }
+    else {  // Link is an artist
+        link = "https://play.spotify.com/artist/" + link.substring(15);
+    }
+    a.target = "_blank";  // Open in new tab
+   ////////////////////////////////////////////////////////////////////////////////////////
+    */
     a.href = link;
     a.title = 'Listen in Spotify';
     var img = document.createElement('img');
