@@ -46,4 +46,4 @@ This script *does* use jQuery, but it is not listed as an `@require`, as What.CD
 
 ## Existing Bugs ##
 - Albums that share the same exact titles with previously visited albums may display erroneous links, if the previously visited album's URI still resides in the cache.
-- Visiting an Artist page will result in duplicate album key-value pairs being added to the cache list.
+- Visiting an Artist page will result in the cache being ignored, and duplicate album key-value pairs being added to the cache list if any of the artist's albums have been visited previously.
