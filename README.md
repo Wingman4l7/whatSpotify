@@ -16,6 +16,7 @@ The script covers the following pages:
 - Torrent page
 - Bookmark artists page
 - Bookmark torrents page
+- Collages *(courtesy user earthtojames!)*
 
 Unfortunately, the widget does **not** support seeking within the track that's playing.  FYI, its [intended behavior][1] is to launch the web player or desktop client to start the playback; the widget is effectively only a “remote control”.
 
