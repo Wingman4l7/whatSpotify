@@ -16,7 +16,7 @@ The script covers the following pages:
 - Torrent page
 - Bookmark artists page
 - Bookmark torrents page
-- Collages ["Subscribed To" only] *(courtesy user earthtojames!)*
+- ~~Collages ("Subscribed To" only) *(courtesy user earthtojames!)*~~ *(deprecated for now)*
 
 If you would like the script to embed links that open the Spotify web player in a new browser tab, instead of embedding links that open the Spotify desktop application, set the `wantLinksToOpenInBrowser` variable in the `createSpotifyLink()` function to `true`. *(courtesy user PizzaWhistles!)*
 
