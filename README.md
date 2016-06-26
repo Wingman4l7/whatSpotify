@@ -18,7 +18,7 @@ The script covers the following pages:
 - Bookmark torrents page
 - Collages ["Subscribed To" only] *(courtesy user earthtojames!)*
 
-If you would like the script to generate links that open the Spotify web player in a new browser tab, instead of generating links that open the desktop application, set the `wantLinksToOpenInBrowser` variable in the `createSpotifyLink()` function to `true`. *(courtesy user PizzaWhistles!)*
+If you would like the script to embed links that open the Spotify web player in a new browser tab, instead of embedding links that open the Spotify desktop application, set the `wantLinksToOpenInBrowser` variable in the `createSpotifyLink()` function to `true`. *(courtesy user PizzaWhistles!)*
 
 Unfortunately, the widget does **not** support seeking within the track that's playing.  Its [intended behavior][1] is to launch the web player or desktop client to start the playback; the widget is effectively only a “remote control”.  The widget does not obscure the album covers nor artist images, but is simply inserted above them.
 
@@ -29,9 +29,7 @@ You can discuss the script [here][2].
   [2]: https://what.cd/forums.php?action=viewthread&threadid=199881
 
 ## Testing / Installation ##
-aphex80 tested it "on a Mac/10.10.3 in Chrome 42.0.2311.135 (64-bit) and Safari 8.0.6 (10600.6.3)."  You'll need Tampermonkey for either of those browsers.  I can confirm it works in Firefox 37.02.2 (using Greasemonkey) and Chrome 50.0.2661.102 (using Tampermonkey).
-
-I've also tested this script using Chrome & the Layer Cake stylesheet.  If the player is offset in an ugly way, you probably will need to tweak the pixel count in the `style` value.
+aphex80 tested it "on a Mac/10.10.3 in Chrome 42.0.2311.135 (64-bit) and Safari 8.0.6 (10600.6.3)."  You'll need Tampermonkey for either of those browsers.  I can confirm it works in Firefox 37.02.2 (using Greasemonkey) and Chrome 50.0.2661.102 (using Tampermonkey).  I use the Layer Cake stylesheet; if the player is offset in an ugly way, you probably will need to tweak the pixel count in the `style` value.
 
 **NOTE:** If you're using a browser extension like Ghostery to block third party tracking, it may block the embedding of the widget, resulting in an empty space or no visual change at all.  Simply allow the widget (`SpotifyEmbed`) within the confines of the What.CD domain within the Ghostery settings to fix this.  You'll also need to allow `Google Tag Manager` or the widget will load & display, but not actually work.
 
