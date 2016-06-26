@@ -18,7 +18,7 @@ The script covers the following pages:
 - Bookmark torrents page
 - Collages ["Subscribed To" only] *(courtesy user earthtojames!)*
 
-If you would like the script to generate links that open the Spotify web player in a new browser tab, instead of generating links that open the desktop application, simply uncomment the indicated code block in the `createSpotifyLink()` function. *(courtesy user PizzaWhistles!)*
+If you would like the script to generate links that open the Spotify web player in a new browser tab, instead of generating links that open the desktop application, set the `wantLinksToOpenInBrowser` variable in the `createSpotifyLink()` function to `true`. *(courtesy user PizzaWhistles!)*
 
 Unfortunately, the widget does **not** support seeking within the track that's playing.  Its [intended behavior][1] is to launch the web player or desktop client to start the playback; the widget is effectively only a “remote control”.  The widget does not obscure the album covers nor artist images, but is simply inserted above them.
 

@@ -14,18 +14,18 @@ localStorage.whatSpotifyArtists = localStorage.whatSpotifyArtists || JSON.string
 
 function createSpotifyLink(link, imageSource) {
     var a = document.createElement('a');
-    /*
-    // ENABLE THIS CODEBLOCK TO HAVE LINKS OPEN IN BROWSER INSTEAD OF DESKTOP APPLICATION //
-    ////////////////////////////////////////////////////////////////////////////////////////
-    if (link.indexOf("album") > -1) {  // Link is an album
-        link = "https://play.spotify.com/album/" + link.substring(14);
+
+    var wantLinksToOpenInBrowser = false; // if "false" => links open in desktop application
+    if (wantLinksToOpenInBrowser) {
+        if (link.indexOf("album") > -1) {  // Link is an album
+            link = "https://play.spotify.com/album/" + link.substring(14);
+        }
+        if (link.indexOf("artist") > -1) {  // Link is an artist
+            link = "https://play.spotify.com/artist/" + link.substring(15);
+        }
+        a.target = "_blank";  // Open in new tab
     }
-    else {  // Link is an artist
-        link = "https://play.spotify.com/artist/" + link.substring(15);
-    }
-    a.target = "_blank";  // Open in new tab
-    ////////////////////////////////////////////////////////////////////////////////////////
-    */
+
     a.href = link;
     a.title = 'Listen in Spotify';
     var img = document.createElement('img');
