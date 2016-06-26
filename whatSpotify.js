@@ -6,7 +6,7 @@
 // @grant        none
 // ==/UserScript==
 
-var maxSizeCache = 500; // doubled across Artist and Album caches (total = maxSizeCache * 2)
+var maxSizeCache = 1000; // split evenly across Artist and Album caches
 var stringSimilarityThreshold = 0.6;
 localStorage.whatSpotifyAlbums = localStorage.whatSpotifyAlbums || JSON.stringify([]);
 localStorage.whatSpotifyArtists = localStorage.whatSpotifyArtists || JSON.stringify([]);
@@ -76,7 +76,7 @@ function getCache(key, type) {
 function setCache(element, type) {
     var list = parseCache(type);
 
-    if (list.length == maxSizeCache) {
+    if (list.length >= maxSizeCache / 2) {
         list.shift();
     }
     list.push(element);
