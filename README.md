@@ -7,7 +7,7 @@
 </p>
 
 ## About ##
-Original version written by What.CD user aphex80.  I added the Spotify player widget functionality, updated & shrank the base64 icons *(courtesy [AlliedEnvy][0])*, fixed a cache key-clash bug, and folded in some extra functionality added by other users (see below).
+Original version written by What.CD user aphex80.  I added the Spotify player widget functionality, updated & shrank the base64 icons *(courtesy [AlliedEnvy][0])*, fixed a cache key-clash bug & a duplicate cache album entries bug, and folded in some extra functionality added by other users (see below).
 
 The script covers the following pages:
 
@@ -44,4 +44,3 @@ This script *does* use jQuery, but it is not listed as an `@require`, as What.CD
 
 ## Existing Bugs ##
 - Albums that share the same exact titles with previously visited albums may display erroneous links, if the previously visited album's URI still resides in the cache.
-- Visiting an Artist page will result in the cache being ignored, and duplicate album key-value pairs being added to the cache list if any of the artist's albums have been visited previously.

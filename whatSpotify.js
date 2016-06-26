@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         whatSpotify
 // @description  Embeds Spotify links & player widget into What.CD artist & album pages
-// @version      0.4
+// @version      0.5
 // @match        https://what.cd/*
 // @grant        none
 // ==/UserScript==
@@ -266,8 +266,12 @@ if (window.location.href.indexOf('artist.php') > -1) {
                     var album = $.grep(albums, function(album) {
                         return sSimilarity(album.name.toUpperCase(), whatAlbum.toUpperCase()) >= stringSimilarityThreshold;
                     });
+                    var cachedAlbumId = null;
                     if (album.length > 0) {
-                        setCache({ key: whatAlbum, value: album[0].id }, "album");
+                        cachedAlbumId = getCache(whatAlbum, "album");
+                        if (cachedAlbumId == null || cachedAlbumId == '') {
+                            setCache({ key: whatAlbum, value: album[0].id }, "album");
+                        }
                         var a = createSpotifyLinkGreen('spotify:album:' + album[0].id);
                         $(group).prepend(a);
                     }
